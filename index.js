@@ -26,8 +26,10 @@ const outputdir = process.argv[3];
         svgContainer.innerHTML = content;
         const svg = svgContainer.querySelector('svg');
         const skiaContent = ProcessSvg(svg, 1, 1, 0, 0, true);
-        const skiaFilePath = path.join(outputdir, changeExtension(fileName, '.icon'));
+        const skiaFileName = changeExtension(fileName, '.icon')
+        const skiaFilePath = path.join(outputdir, skiaFileName);
         await fs.writeFile(skiaFilePath, skiaContent);
+        console.log('Wrote file:', skiaFileName);
     }
     svgContainer.remove();
     //
