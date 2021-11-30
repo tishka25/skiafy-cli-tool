@@ -1,0 +1,21 @@
+{
+  "name": "skiafy-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "npm link",
+    "uninstall": "npm unlink"
+  },
+  "author": "Teodor Stanishev",
+  "license": "ISC",
+  "bin": {
+    "convert-to-icon": "./index.js"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "jsdom": "^18.1.1"
+  }
+}
