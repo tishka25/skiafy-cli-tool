@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-
-
 import * as fs from 'fs/promises';
 import { JSDOM } from 'jsdom';
 import * as path from 'path';
 import { ProcessSvg } from './skiafy.js';
 import { changeExtension, getSvgs } from './utils.js';
 const { document } = (new JSDOM('')).window;
+import { optimize } from 'svgo';
+
 
 
 const inputdir = process.argv[2];
@@ -23,7 +23,13 @@ const outputdir = process.argv[3];
     for(var fileName of filtered_content){
         const filePath = path.join(inputdir, fileName)
         const content = await fs.readFile(filePath);
-        svgContainer.innerHTML = content;
+        const optimizedContent = optimize(content, {
+            // optional but recommended field
+            path: filePath,
+            // all config fields are also available here
+            multipass: true,
+          });
+        svgContainer.innerHTML = optimizedContent.data;
         const svg = svgContainer.querySelector('svg');
         const skiaContent = ProcessSvg(svg, 1, 1, 0, 0, true);
         const skiaFileName = changeExtension(fileName, '.icon')
